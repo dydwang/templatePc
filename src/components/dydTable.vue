@@ -10,7 +10,7 @@
             </el-table-column>
             <slot></slot>
         </el-table>
-        <next-page :count="count" :nextPageButtonType="nextPageButtonType" :table="data" @change="changePage" style="margin: 30px auto;"></next-page>
+        <next-page v-show="(data.length /count) > 1" :count="count" :nextPageButtonType="nextPageButtonType" :table="data" @change="changePage" style="margin: 30px auto;"></next-page>
     </div>
 </template>
 

@@ -1,10 +1,10 @@
 const Monk = require('monk')
-const url = 'localhost:27017/table';
-const db = new Monk(url);
+let url;
+let db
 
 class LinkMdb{
-    constructor(){
-
+    constructor(config){
+      db = new Monk(config);
     }
 
     db(){
@@ -20,10 +20,9 @@ class LinkMdb{
             })
         })
     }
-
     add(body){
         let table=body.$table
-        let data=body.$where
+        let data=body.$insert
         return new Promise(   (rs, rj) => {
             if (db.get(table).insert([data])) {
                 rs(true)
@@ -32,7 +31,6 @@ class LinkMdb{
             }
         })
     }
-
     del(body){
         let table=body.$table
         let data=body.$where
@@ -45,12 +43,12 @@ class LinkMdb{
         })
     }
 
-    update(body){
+    up(body){
         let table=body.$table
         let data=body.$set
         let where=body.$where
         return new Promise(   (rs, rj) => {
-            if (db.get(table).update(where,data)) {
+            if (db.get(table).update(where,{$set:data})) {
 
                 rs(true)
             } else {
@@ -61,5 +59,5 @@ class LinkMdb{
     }
 }
 
-module.exports=new LinkMdb()
+module.exports=LinkMdb
 

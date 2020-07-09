@@ -11,8 +11,8 @@ function up(table,data,where={ids:data.ids,id:data.id}){
     return {
         $table:table,
         $method:'up',
-        $where:where,
-        $set:data
+        $where:data.$where || where ,
+        $set:data.$set || data
     }
 }
 function get(table,data){

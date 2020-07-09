@@ -33,8 +33,15 @@
     data() {
       return {
         upload:false,
-        imageUrl:''
       };
+    },
+    computed:{
+      imageUrl: {
+        get(){
+          return this.src?this.$nodeUrl+'getImg?imagePath='+this.src:''
+        },
+        set(){}
+      }
     },
     methods: {
       submit(){  //上传
@@ -72,19 +79,13 @@
       },
     },
     mounted() {
-      this.imageUrl=this.src?this.$nodeUrl+'getImg?imagePath='+this.src:''
     },
     activated(){
-      this.imageUrl=this.src?this.$nodeUrl+'getImg?imagePath='+this.src:''
     },
     created() {
 
     },
     watch:{
-      src(){
-        console.log(this.src)
-        this.imageUrl=this.src?this.$nodeUrl+'getImg?imagePath='+this.src:''
-      }
     }
   }
 </script>

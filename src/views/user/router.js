@@ -1,3 +1,4 @@
+import menuList from "./my/menuList";
 let routes=[
   {
     path:'/user',
@@ -22,9 +23,22 @@ let routes=[
             path:'/signUp',
             name:'注册',
             component:()=>import('./login/signUp')
+          },
+          {
+            path:'/forget',
+            name:'注册',
+            component:()=>import('./login/forget')
           }
         ]
       },
+      {
+        path:'/myIndex',
+        name:'myIndex',
+        component:()=>import('./my/index'),
+        children:[
+          ...menuList
+        ]
+      }
 
     ]
   }

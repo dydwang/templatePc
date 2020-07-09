@@ -22,7 +22,7 @@ class Lmsq{
                 }
             }
             sql=sql.substr(0,sql.length-1)+')'
-            linkSql(sql).then(r=>{
+            linkSql(sql,body.$configDB).then(r=>{
                 rs(r)
             }).catch(err=>{
                 rj(err)
@@ -87,7 +87,7 @@ class Lmsq{
                 sql+=` ORDER BY ${$orderBY.col} ${$orderBY.methods||'DESC'}`
             }
 
-        linkSql(sql).then(r=>{
+        linkSql(sql,body.$configDB).then(r=>{
             rs(r)
         }).catch(err=>{
             rj(err)
@@ -116,7 +116,7 @@ class Lmsq{
             }
         }
         sql=sql.substr(0,sql.length-3)
-        linkSql(sql).then(r=>{
+        linkSql(sql,body.$configDB).then(r=>{
             rs(r)
         }).catch(err=>{
             rj(err)
@@ -139,7 +139,7 @@ class Lmsq{
                 }
             }
             sql=sql.substr(0,sql.length-3)
-            linkSql(sql).then(r=>{
+            linkSql(sql,body.$configDB).then(r=>{
                 rs(r)
             }).catch(err=>{
                 rj(err)
@@ -156,7 +156,7 @@ class Lmsq{
                 sql += i + ' ' + $col[i] + ','
             }
             sql = sql.substr(0, sql.length - 1) + ')'
-            linkSql(sql).then(r => {
+            linkSql(sql,body.$configDB).then(r => {
                 rs(r)
             }).catch(err=>{
                 rj(err)
@@ -169,7 +169,7 @@ class Lmsq{
         return new Promise((rs,rj)=> {
             let $table = body.$table
             let sql = 'DROP TABLE tbl_'+$table
-            linkSql(sql).then(r => {
+            linkSql(sql,body.$configDB).then(r => {
                 rs(r)
             }).catch(err=>{
                 rj(err)
@@ -182,7 +182,7 @@ class Lmsq{
         return new Promise((rs,rj)=> {
             let $table = body.$table
             let sql = 'delete from tbl_'+$table
-            linkSql(sql).then(r => {
+            linkSql(sql,body.$configDB).then(r => {
                 rs(r)
             }).catch(err=>{
                 rj(err)

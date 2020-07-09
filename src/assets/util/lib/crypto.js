@@ -6,7 +6,7 @@ const iv  = CryptoJS.enc.Latin1.parse("FnJL7EDzjqWjcaY9"); //16位初始向量
 
 // 加密
 export default function encrypt(text){
-    return CryptoJS.AES.encrypt(text.toString(), key, {
+    return CryptoJS.AES.encrypt(JSON.stringify(text), key, {
         iv: iv,
         mode: CryptoJS.mode.CBC,
         padding: CryptoJS.pad.ZeroPadding

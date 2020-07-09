@@ -44,7 +44,7 @@
                         userId:this.adminId
                     },
                 }
-                this.$api.get('adminLogin',cnt,res=>{
+                this.$api.get('loginInfo',cnt,res=>{
                     this.tableData=res
                 })
             }

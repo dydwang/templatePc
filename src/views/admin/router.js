@@ -31,6 +31,11 @@ let routes=[
                 component: () => import( './admin/info'),
             },
           {
+            path:'/admin-user',
+            name:'管理员资料',
+            component: () => import( './user/index'),
+          },
+          {
             path:'/admin-mysql',
             name:'数据库管理',
             component: () => import( '../table/index'),

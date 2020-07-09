@@ -8,7 +8,7 @@ import rules from './rules'
 import array from './array'
 import city from './info-city'
 import verificationCode from './verificationCode'
-
+import ver from './ver'
 async function fun(Vue,options) {
     Vue.prototype.$api=api;            /**接口清单*/
     Vue.prototype.$userInfo=userInfo;  /**用户信息*/
@@ -31,5 +31,7 @@ async function fun(Vue,options) {
     Vue.prototype.$myCity=city /**用户省市*/
 
     Vue.prototype.$verificationCode=new verificationCode() /**验证码*/
+
+    Vue.prototype.$ver=ver /**elememt 表单验证*/
 }
 export default fun

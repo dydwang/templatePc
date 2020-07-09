@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 let lmsq = require('../sql/fun/linkMSQ')
-let lmdb =require('../sql/fun/linkMDB')
+let Lmdb =require('../sql/fun/linkMDB')
 /* GET users listing. */
 router.post('/', function(req, res, next) {
  // console.log(req.body)
@@ -14,10 +14,14 @@ router.post('/', function(req, res, next) {
       res.send(err)
     })
   }else{
-    lmdb[req.body.$method](req.body).then(r=>{
-      res.status(503)
+    new Lmdb(req.body.$configDB)[req.body.$method](req.body)
+      .then(r=>{
       res.send(r)
-    })
+      })
+      .catch((err) =>{
+        res.status(503)
+        res.send(err)
+      })
   }
 });
 

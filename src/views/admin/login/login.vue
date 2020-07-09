@@ -90,9 +90,7 @@ export default {
         cid:window.returnCitySN.cid,
         cip:window.returnCitySN.cip
       }
-      this.$api.add('adminLogin', cnt, res => {
-
-      })
+      this.$api.add('loginInfo', cnt)
     },
     login() {
       this.$refs['loginForm'].validate((valid) => {

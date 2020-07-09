@@ -6,6 +6,7 @@
             </el-header>
 
             <el-main>
+                <right></right>
                 <keep-alive>
                     <router-view></router-view>
                 </keep-alive>
@@ -21,10 +22,11 @@
 <script>
     import headers from "./header";
     import footers from "./footer";
+    import right from "./right";
   export default {
     name: 'index',
     props: [''],
-    components: {headers,footers},
+    components: {headers,footers,right},
     data() {
       return {}
     },
@@ -43,7 +45,7 @@
     .index {
         .el-header{
             width: 100%;
-          background-color: #ffffff;
+          background-color: #f7f8fa;
           border-bottom: 1px solid #eeeeee;
         }
         .el-main{

@@ -2,6 +2,8 @@ import {Service} from './axios.js'
 import ConfigBaseURL from "./url";
 import {Loading,Message} from "element-ui";
 import overdue from './overdue'  /** 账号是否过期 */
+import config from "./config";
+import crypto from "./crypto";
 let serve=function (options,callback) {
     let loadingInstance={}
     loadingInstance[`load${options.$method}'-'${options.$table}`]= Loading.service({
@@ -10,16 +12,15 @@ let serve=function (options,callback) {
         text: 'loading...'
     })
 
-        /**
-         * options.$db='mysql'; 请求数据库
-         * */
-
-     options.$db='mysql';
+    /**
+     * 配置options
+     * */
+    config(options)
 
     Service({
         url: 'api/?'+options.$method+'-'+options.$table,
         method: 'post',//请求方法
-        data:options,
+        data: options.$isCrypto ? crypto(options) : options,
         timeout: 5000, // 请求超时时间5s
         baseURL: ConfigBaseURL,
         headers: {

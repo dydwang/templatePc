@@ -3,14 +3,24 @@
     <div class="signIn-title">
       登录
     </div>
-    <el-input v-model="ruleForm.username" placeholder="账号">
-      <i slot="prefix" class="el-input__icon el-icon-user"></i>
+    <el-input :disabled="!sendOut" type="number" v-model.number="ruleForm.phone" placeholder="手机">
+      <i slot="prefix" class="el-input__icon el-icon-mobile"></i>
     </el-input>
-    <el-input v-model="ruleForm.password" :type="lookPassword ? 'text' : 'password'" placeholder="密码">
-      <div slot="suffix" class="el-input__icon" @click="lookPassword = !lookPassword">
-        <van-icon :name="lookPassword ?  'closed-eye':'eye-o'"></van-icon>
+    <el-input  v-model="phoneCode" placeholder="短信验证码">
+      <div slot="suffix" style="line-height: 40px" @click="">
+        <span v-if="sendOut" @click="sendOut = !sendOut" style="cursor: pointer" :disabled="/^[1][3,4,5,7,8,9][0-9]{9}$/.test(this.ruleForm.phone)">发送</span>
+        <van-count-down
+          style="line-height: 40px;color:#fff"
+          v-else
+          ref="countDown"
+          millisecond
+          :time="60 * 1000"
+          :auto-start="true"
+          format="ss s"
+          @finish="sendOut =! sendOut"
+        />
       </div>
-      <i slot="prefix" class="el-input__icon  el-icon-setting"></i>
+      <i slot="prefix" class="el-input__icon el-icon-key"></i>
     </el-input>
     <el-input v-model="inputCode" placeholder="验证码">
       <div slot="suffix" class="code" @click="changeCode">
@@ -19,7 +29,7 @@
       <i slot="prefix" class="el-input__icon el-icon-key"></i>
     </el-input>
     <div class="signIn-footer">
-      <el-button type="text" style="float: right" @click="$routerGo('/forget')">手机登录</el-button>
+      <el-button type="text" style="float: right" @click="$routerGo('/signIn')">密码登录</el-button>
     </div>
     <el-button plain type="primary" style="width: calc(50% - 5px)" @click="login"> 登录 </el-button>
     <el-button plain type="success" style="width: calc(50% - 5px)" @click="$routerGo('/signUp')"> 注册 </el-button>
@@ -34,12 +44,13 @@
     data() {
       return {
         ruleForm :{
-          username:'',
-          password:'',
+          phone:'',
         },
+        phoneCode:'',
         inputCode:'',
         code:'',
         lookPassword:false,
+        sendOut: true
       }
     },
     computed: {},
@@ -62,21 +73,24 @@
       },
       login() {
         if(this.$verificationCode.equal(this.inputCode)){
-          let form = {
-            $where: this.ruleForm
-          }
-          this.$api.get('user',form,res=>{
-            if(res.length){
-              this.$userInfo(res[0])
-              this.userLogin()
-              this.$routerGo('/')
-            }else{
-              this.$message.info('账号或密码错误')
-              this.ruleForm.username = ''
-              this.ruleForm.password = ''
-              this.changeCode()
+          if(this.phoneCode === '1234'){
+            let form = {
+              $where: this.ruleForm
             }
-          })
+            this.$api.get('user',form,res=>{
+              if(res.length){
+                this.$userInfo(res[0])
+                this.userLogin()
+                this.$routerGo('/')
+              }else{
+                this.$message.info('该手机号未注册')
+                this.changeCode()
+              }
+            })
+          }else{
+            this.$message.info('短信验证码错误')
+            this.changeCode()
+          }
         }else{
           this.$message.info('验证码错误')
           this.changeCode()
@@ -146,6 +160,13 @@
       .el-input__inner{
         color:$cursor !important;
         background-color: transparent !important;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+      input[type="number"]{
+        -moz-appearance: textfield;
       }
       height: 47px;
       input {

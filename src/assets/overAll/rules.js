@@ -1,5 +1,17 @@
 const rules={
-
+  // element 表单验证
+    ver:function(refFormName){
+      console.log(this)
+      return new Promise((rs,rj)=>{
+        this.$refs[refFormName].validate((valid) => {
+          if (valid) {
+            rs(true)
+          } else {
+            rj(false)
+          }
+        })
+      })
+    },
     /**账号密码长度在6-16 并且包含数字与字母*/
     username:(rule, value, callback) => {
         let string=false
@@ -29,7 +41,6 @@ const rules={
 
     /** 手机号 */
     phone:(rule, value, callback)=>{
-        console.log(value)
         let p= /^[1][3,4,5,7,8,9][0-9]{9}$/;
         if (!p.test(value)) {
             callback(new Error('手机号格式不正确'));
@@ -103,5 +114,4 @@ const rules={
 
     },
 }
-//522425199908022458
 export default rules

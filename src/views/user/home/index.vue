@@ -31,7 +31,7 @@
         this.tableData=res
       })
     },
-    watch() {
+    watch: {
     }
   }
 </script>
