@@ -30,16 +30,21 @@ let routes=[
                 name:'管理员资料',
                 component: () => import( './admin/info'),
             },
-          {
-            path:'/admin-user',
-            name:'管理员资料',
-            component: () => import( './user/index'),
-          },
-          {
-            path:'/admin-mysql',
-            name:'数据库管理',
-            component: () => import( '../table/index'),
-          },
+            {
+              path:'/admin-news',
+              name:'新闻资讯',
+              component: () => import( './news/index'),
+            },
+            {
+              path:'/admin-user',
+              name:'用户管理',
+              component: () => import( './user/index'),
+            },
+            {
+              path:'/admin-mysql',
+              name:'数据库管理',
+              component: () => import( '../table/index'),
+            },
 
             {
                 path: '/admin-404',

@@ -74,8 +74,15 @@
     },
     created() {
     },
+    computed:{
+      userInfo(){
+
+      }
+    },
     components: {},
-    watch: {},
+    watch: {
+
+    },
   }
 </script>
 

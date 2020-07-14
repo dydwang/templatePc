@@ -1,12 +1,12 @@
 const table={
   '数据库名称':'新闻资讯',
-    ids:'varchar(20) primary key',
-    names:'varchar(20) not null',
-    content:'varchar(200)',
-    pdfPath:'varchar(200)',
-    videoPath:'varchar(200) '
+    title:'varchar(20) primary key',
+    subtitle:'varchar(50) not null',
+    content:'TEXT(65535)',
+    video:'varchar(200)',
+    pdf:'varchar(200)',
+    views : 'int(20)'
 }
-
 export default table
 
 

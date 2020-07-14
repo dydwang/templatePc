@@ -19,12 +19,12 @@
             </el-aside>
 
             <el-container>
-                <el-header style="box-shadow: 0 1px 4px rgba(0,21,41,.08);padding-left: 0" :height="menuType.menuHeader+'px'">
-                    <menuHeader :height="menuType.menuHeader"></menuHeader>
+                <el-header style="box-shadow: 0 1px 4px rgba(0,21,41,.08);padding-left: 0" :height="menuType.menuHeader+'px'" :style="{ backgroundColor: menuType.headBack }">
+                    <menuHeader :height="menuType.menuHeader" ></menuHeader>
                 </el-header>
 
                 <el-main style="padding-right: 0;min-width: 800px;height:100vh;overflow: auto;"
-                         :style="{marginBottom: menuType.menuHeader+'px'}"
+                         :style="{marginBottom: menuType.menuHeader+'px', backgroundColor: menuType.mainBack}"
                 >
                     <keep-alive>
                         <transition name="el-fade-in" >
@@ -133,4 +133,9 @@
 
         }
     }
+</style>
+<style>
+  .el-link{
+    padding: 5px !important;
+  }
 </style>

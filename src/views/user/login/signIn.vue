@@ -67,9 +67,13 @@
           }
           this.$api.get('user',form,res=>{
             if(res.length){
-              this.$userInfo(res[0])
-              this.userLogin()
-              this.$routerGo('/')
+              if( Number( res[0].prohibit ) > Date.now() ){
+                this.$message.info(`对不起，您的账号已被封禁，解封日期为 ${ this.$Time(res[0].prohibit).getTime() }`)
+              }else{
+                this.$userInfo(res[0])
+                this.userLogin()
+                this.$routerGo('/')
+              }
             }else{
               this.$message.info('账号或密码错误')
               this.ruleForm.username = ''

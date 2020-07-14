@@ -1,5 +1,5 @@
 <template>
-    <div id="items" :style="{marginTop:(height-48.73)/2+'px',height:menuType.menuHeader+'px'}">
+    <div id="items" :style="{ marginTop:(height-48.73)/2+'px',height:menuType.menuHeader+'px' }">
         <el-button :class="!menuType.isCollapse?'el-icon-s-fold':'el-icon-s-unfold'"
                    type="text"
                    @click="clickIcon"
@@ -16,7 +16,7 @@
                 <div>
                     <el-button type="text">
                         <img :src="adminImg"
-                             class="user-avatar" width="40px" height="40px" style="border-radius: 20px;margin-top: 4px">
+                             class="user-avatar" width="40px" height="40px" style="border-radius: 20px;margin-top: 4px;">
                         <i class="el-icon-caret-bottom" />
                     </el-button>
                 </div>
@@ -29,6 +29,13 @@
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
+          <div style="text-align: center;float: right;margin-right: 10px;"
+               :style="{lineHeight:menuType.menuHeader+'px'}">
+            <el-tooltip class="item" effect="dark" content="全屏" placement="bottom-start">
+              <el-link :underline="false" class="el-icon-full-screen" @click="fullScreen"></el-link>
+            </el-tooltip>
+
+          </div>
             <div style="text-align: center;float: right;margin-right: 10px;max-width: 200px"
                  :style="{lineHeight:menuType.menuHeader+'px'}">
                 {{$adminInfo().names}}
@@ -37,6 +44,7 @@
                  :style="{lineHeight:menuType.menuHeader+'px'}">
                 {{$myCity().province}} {{$myCity().city}} <i :class="dayIcon"></i>{{tem.tem}}°C
             </div>
+
         </div>
     </div>
 </template>
@@ -95,7 +103,29 @@
                 axios.get('https://www.tianqiapi.com/api?version=v61&appid=63428653&appsecret=hdz1e5w8').then((res)=>{
                     this.tem=res.data
                 })
+            },
+
+          // 全屏显示
+          fullScreen(state) {
+            if (!document.fullscreenElement && // alternative standard method
+              !document.mozFullScreenElement && !document.webkitFullscreenElement) {// current working methods
+              if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+              } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+              } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+              }
+            } else {
+              if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+              } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+              } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+              }
             }
+          }
         },
         computed:{
             adminImg(){

@@ -1,6 +1,6 @@
 <template>
     <div id="dydTable">
-        <el-table :data="data.slice((value-1)*10,value*10)" :border="border"  :row-class-name="tableRowClassName">
+        <el-table stripe :data="data.slice((value-1)*10,value*10)" :border="border">
             <el-table-column
                     width="50"
                     label="#">

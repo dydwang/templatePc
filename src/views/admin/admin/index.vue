@@ -72,8 +72,8 @@
                     width="160"
                     label="操作">
                 <template slot-scope="scope">
-                    <el-button round plain size="mini" type="warning" @click="updates=true;ruleForm=$JSP(scope.row);$refs.dialog.openDia();index=scope.$index">修改</el-button>
-                    <el-button round plain size="mini" type="danger" @click="deleteAdmin(scope.row,scope.$index)">删除</el-button>
+                    <dydLink  type="up" @click.native="updates=true;ruleForm=$JSP(scope.row);$refs.dialog.openDia();index=scope.$index">修改</dydLink>
+                    <dydLink  type="del"   @click.native="deleteAdmin(scope.row,scope.$index)">删除</dydLink>
                 </template>
             </el-table-column>
         </dyd-table>

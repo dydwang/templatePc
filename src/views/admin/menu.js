@@ -14,7 +14,7 @@ let menu={
         },
         {
             path:'/admin-user',
-            name:'用户',
+            name:'用户管理',
             icon:'el-icon-user',
             children:[
             ]
@@ -24,6 +24,12 @@ let menu={
             name:'轮播图管理',
             icon:'el-icon-picture-outline',
             //children:[]
+        },
+        {
+          path:'/admin-news',
+          name:'新闻资讯',
+          icon:'el-icon-picture-outline',
+          //children:[]
         },
 
     ],

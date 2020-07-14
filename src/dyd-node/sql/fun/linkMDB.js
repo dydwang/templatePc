@@ -14,9 +14,8 @@ class LinkMdb{
         let table=body.$table
         let data=body.$where
         return new Promise(  (resolve, reject) => {
-            console.log(1)
             db.get(table).find(data).then(res=>{
-                resolve(res) ;
+                resolve(res.reverse()) ;
             })
         })
     }

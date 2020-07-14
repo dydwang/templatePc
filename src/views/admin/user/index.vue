@@ -53,15 +53,31 @@
             >
             </el-table-column >
             <el-table-column
-                    prop="email"
-                    label="email ">
+              label="解封时间">
+              <template slot-scope="scope">
+                {{ (!scope.row.prohibit || scope.row.prohibit < Date.now()) ? ' 账号正常 ' : $Time(scope.row.prohibit).getTime()}}
+              </template>
             </el-table-column>
             <el-table-column
-                    width="160"
+                    width="180"
                     label="操作">
                 <template slot-scope="scope">
-                    <el-button round plain size="mini" type="warning" @click="updates=true;ruleForm=$JSP(scope.row);$refs.dialog.openDia();index=scope.$index">修改</el-button>
-                    <el-button round plain size="mini" type="danger" @click="deleteAdmin(scope.row,scope.$index)">删除</el-button>
+                    <dydLink  type="up" @click.native="updates=true;ruleForm=$JSP(scope.row);$refs.dialog.openDia();index=scope.$index">修改</dydLink>
+                    <el-dropdown v-if="!scope.row.prohibit || (scope.row.prohibit < Date.now())" @command="(command)=>prohibit(command,scope.row)">
+                      <span class="el-dropdown-link">
+                        <el-link :underline="false" type="warning" size="mini" round plain>封号</el-link>
+                      </span>
+                      <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item :command="1*1000*60*60*24">1天</el-dropdown-item>
+                        <el-dropdown-item :command="3*1000*60*60*24">3天</el-dropdown-item>
+                        <el-dropdown-item :command="7*1000*60*60*24">7天</el-dropdown-item>
+                        <el-dropdown-item :command="30*1000*60*60*24">30天</el-dropdown-item>
+                        <el-dropdown-item :command="365*1000*60*60*24">365天</el-dropdown-item>
+                        <el-dropdown-item :command="1000000*1000*60*60*24">永久</el-dropdown-item>
+                      </el-dropdown-menu>
+                    </el-dropdown>
+                    <el-link v-else :underline="false"  type="warning" @click="prohibit(0, scope.row)">解封</el-link>
+                    <dydLink  type="del" @click.native="deleteAdmin(scope.row,scope.$index)">删除</dydLink>
                 </template>
             </el-table-column>
         </dyd-table>
@@ -145,7 +161,25 @@
                 this.$api.del('user',{ids:row.ids},res=>{
                     this.tableData.splice(index,1)
                 })
-            }
+            },
+          prohibit(command, row){
+            console.log(command)
+            let msg = command
+              ? `封号`
+              : `解封`
+            let prohibit = command
+              ? Date.now()+command
+              : command
+            this.$confirm(`此操作使${(row.names || row.username) + msg}, 是否继续?`, '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$api.up('user',{ ids:row.ids, prohibit: prohibit },()=>{
+                row.prohibit = prohibit
+              })
+            })
+          }
         },
         mounted() {
         },
@@ -162,6 +196,5 @@
 
 <style scoped lang='scss'>
     #index {
-
     }
 </style>

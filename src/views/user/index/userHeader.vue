@@ -35,7 +35,7 @@
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item @click.native="$routerGo('/myInfo')">个人中心</el-dropdown-item>
-        <el-dropdown-item @click.native="$userInfo('clear')">退出登录</el-dropdown-item>
+        <el-dropdown-item @click.native="$userInfo('clear');$routerGo('/')">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>

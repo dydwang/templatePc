@@ -7,7 +7,7 @@
                 :visible.sync="dialogVisible"
                 :width="width"
                 :before-close="handleClose">
-            <slot></slot>
+            <slot class="slot"></slot>
         </el-dialog>
     </div>
 </template>
@@ -63,10 +63,14 @@
 <style  lang='scss'>
     #dydDialog {
         .el-dialog{
-            border-radius: 20px;
+          border-radius: 6px;
+          z-index: 2002;
         }
         .v-modal{
-            z-index: 0;
+          z-index: 2000;
+        }
+        .slot{
+          z-index: 2002;
         }
     }
 </style>

@@ -91,6 +91,8 @@
           password:'',
           validatePass:'',
           phone:'',
+          prohibit:0,
+          userImg:''
         },
         rules:{
           username: [
@@ -130,11 +132,11 @@
           .then(()=>{
             if(this.$verificationCode.equal(this.inputCode)){
               if(this.phoneCode === '1234'){
-                delete this.ruleForm.validatePass
                 this.$api.get('user',{$where:{username:this.ruleForm.username}},r=>{
                   if(!r.length){
-                    this.$api.get('user',{$where:{username:this.ruleForm.username}},r=>{
+                    this.$api.get('user',{$where:{phone:this.ruleForm.phone}},r=>{
                       if(!r.length){
+                        delete this.ruleForm.validatePass
                         this.ruleForm.ids = Date.now()
                         this.ruleForm.names = '游客'+Date.now()
                         this.$api.add('user',this.ruleForm,res=>{
